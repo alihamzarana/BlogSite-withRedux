@@ -1,7 +1,17 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllBlogs } from "../redux/actions/blogActions";
 
-const BlogList = ({ blogs }) => {
+const BlogList = () => {
+  const dispatch = useDispatch()
+  const blogs = useSelector((state) => state.blogReducer.blogs)
+  console.log("blogs in blog list", blogs)
+
+  useEffect(() => {
+  dispatch(getAllBlogs())
+    
+  }, [])
   return (
     <div className="blog-lists">
       

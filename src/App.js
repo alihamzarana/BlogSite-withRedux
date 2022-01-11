@@ -1,10 +1,11 @@
 import Navbar from "./components/Navbar";
-import Home from "./components/Home";
+// import Home from "./components/Home";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Create from "./components/Create";
 import React from "react";
 import BlogDetail from "./components/BlogDetail";
 import NotFound from "./components/NotFound";
+import BlogList from "./components/BlogList";
 
 function App() {
   return (
@@ -14,7 +15,7 @@ function App() {
           <Navbar />
           <div className="content">
             <Routes>
-              <Route exact path={"/"} element={<Home />} />
+              <Route exact path={"/"} element={<BlogList />} />
               <Route path={"/create"} element={<Create />} />
               <Route path={"/blogs/:id"} element={<BlogDetail />} />
               <Route path={"*"} element={<NotFound />}></Route>
