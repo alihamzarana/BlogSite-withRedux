@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { isDisabled } from "@testing-library/user-event/dist/utils";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
@@ -45,6 +46,22 @@ const BlogList = () => {
     setPageNumber(Math.min(pageNumber + 1));
     // setPageNumber(Math.min(numberOfPages - 1, pageNumber + 1));
   };
+=======
+import React, {useEffect} from "react";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllBlogs } from "../redux/actions/blogActions";
+
+const BlogList = () => {
+  const dispatch = useDispatch()
+  const blogs = useSelector((state) => state.blogReducer.blogs)
+  console.log("blogs in blog list", blogs)
+
+  useEffect(() => {
+  dispatch(getAllBlogs())
+    
+  }, [])
+>>>>>>> 02273f3f0324f199345bfa8fc3ce3ec93275dc73
   return (
     <div className="blog-lists">
       <h3>page of - {pageNumber}</h3>
