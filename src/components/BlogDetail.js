@@ -1,32 +1,39 @@
-import axios from "axios";
-import React from "react";
-import { useParams } from "react-router-dom";
-import useFetch from "./useFetch";
+import React, { useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { deleteBlog } from "../redux/actions/blogActions";
+import { useSelector } from "react-redux";
+import { getSingleBlog } from "../redux/actions/blogActions";
 
 const BlogDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const {
-    error,
-    isPending,
-    data: blog,
-  } = useFetch("http://localhost:8000/blogs/" + id);
-  const handleDelete = async () => {
-    const data = await axios.delete("http://localhost:8000/blogs/" + id);
-    console.log("deleted blog", data);
-    navigate("/");
+  const dispatch = useDispatch();
+  const blog = useSelector((state) => state.blogReducer.blog);
+  console.log("single blog", blog);
+
+  useEffect(() => {
+    dispatch(getSingleBlog(id));
+  }, []);
+
+  const handleDelete = () => {
+    dispatch(deleteBlog(id, navigate));
+  };
+  const handleUpdate = () => {
+    navigate(`/blogs/update-blog/${id}`);
   };
   return (
     <div className="blog-details">
-      {isPending && <div>Loading...</div>}
-      {error && <div>{error}</div>}
       {blog && (
         <article>
           <h2>{blog.title}</h2>
           <p>Written By {blog.author}</p>
           <div>{blog.body}</div>
           <button onClick={handleDelete}>Delete</button>
+          <Link to={`/blogs/update-blog/${blog._id}`}>
+            <button onClick={handleUpdate}>Update</button>
+          </Link>
         </article>
       )}
     </div>

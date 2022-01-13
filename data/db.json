@@ -7,10 +7,16 @@
       "id": 2
     },
     {
-      "title": "travel trip",
-      "body": "UseHistory have been replaced with useNavigate. So try this👇👇\n\nimport { useNavigate } from 'react-router-dom';\n\nconst navigate = useNavigate(); navigate('/home')",
+      "title": "hello",
+      "body": "njwjwnj",
       "author": "author2",
-      "id": 3
+      "id": 4
+    },
+    {
+      "title": "uhsbh",
+      "body": "bdjdj",
+      "author": "author2",
+      "id": 6
     }
   ]
 }

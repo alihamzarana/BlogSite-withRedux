@@ -10,25 +10,27 @@ const Home = () => {
   //   console.log("new blogs", newBlogs);
   //   setBlogs(newBlogs);
   // };
-  const {
-    error,
-    isPending,
-    data: blogs,
-  } = useFetch("http://localhost:8000/blogs");
+  // const {
+  //   error,
+  //   isPending,
+  //   data: blogs,
+  // } = useFetch("http://localhost:8000/blogs");
 
   const dispatch = useDispatch();
-  let blog1 = useSelector((state) => state.blogReducer.blogs);
-  console.log(("all blogs", blog1));
+  let blogs = useSelector((state) => state.blogReducer.blogs);
+  console.log(("all blogs", blogs));
 
   useEffect(() => {
     dispatch(getAllBlogs());
   }, []);
 
+
+
   return (
     <div className="home">
-      {error && <div>{error}</div>}
-      {isPending && <div>Loading...</div>}
-      {blogs && <BlogList blogs={blogs} title="All Blogs" />}
+      {/* {error && <div>{error}</div>}
+      {isPending && <div>Loading...</div>} */}
+      {blogs && <BlogList title="All Blogs" />}
       {/* <BlogList
         blogs={blogs.filter((blog) => blog.author === "mario")}
         title="Mario Blogs"

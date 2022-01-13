@@ -1,12 +1,17 @@
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
   return (
-    <nav className="navbar">
+    <nav className="navbar create">
       <h1>The Blog</h1>
       <div className="links">
         <Link to="/">Home</Link>
-        
+
         <Link
           to="/create"
           style={{
@@ -17,6 +22,7 @@ const Navbar = () => {
         >
           New Blog
         </Link>
+        <button onClick={handleLogout}>Logout</button>
       </div>
     </nav>
   );
