@@ -4,18 +4,26 @@ import { useDispatch } from "react-redux";
 import { addBlog } from "../redux/actions/blogActions";
 
 const Create = () => {
-  const [title, setTitle] = useState("");
-  const [body, setBody] = useState("");
-  const [author, setAuthor] = useState("");
+  const userId = localStorage.getItem("userId");
+  const userName = localStorage.getItem("username");
+  const token = localStorage.getItem("token");
+
+  const [blog, setBlog] = useState({
+    title: "",
+    body: "",
+    author: userName,
+    userId,
+  });
+
   let navigate = useNavigate();
 
   const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const blog = { title, body, author };
-    console.log("blog data", blog);
-    dispatch(addBlog(blog, navigate));
+    const data = blog;
+    console.log("blog data", data);
+    dispatch(addBlog(data, token, navigate));
   };
   return (
     <div className="create">
@@ -26,27 +34,18 @@ const Create = () => {
           type="text"
           name="title"
           required
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          value={blog.title}
+          onChange={(e) => setBlog({ ...blog, title: e.target.value })}
         />
         <label>Blog Body:</label>
         <textarea
           type="text"
-          value={body}
+          value={blog.dispatchbody}
           name="body"
-          onChange={(e) => setBody(e.target.value)}
+          onChange={(e) => setBlog({ ...blog, body: e.target.value })}
           required
         ></textarea>
-        <label>Blog Author:</label>
-        <select
-          value={author}
-          name="author"
-          onChange={(e) => setAuthor(e.target.value)}
-        >
-          <option selected>Select an author</option>
-          <option value="author1">Author 1</option>
-          <option value="author2">Author 2</option>
-        </select>
+
         <button>Add Blog</button>
       </form>
     </div>

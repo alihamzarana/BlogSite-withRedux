@@ -11,7 +11,7 @@ const BLogUpdate = () => {
   // const [title, setTitle] = useState("");
   // const [body, setBody] = useState("");
   // const [author, setAuthor] = useState("");
-  const [blog, setBlog] = useState("");
+  const [blog, setBlog] = useState({ title: "", body: "" });
   const { id } = useParams();
   let navigate = useNavigate();
 
@@ -19,18 +19,16 @@ const BLogUpdate = () => {
 
   useEffect(() => {
     dispatch(getSingleBlogItem(id));
-  }, []);
-
-  useEffect(() => {
     setBlog(singleBlog);
   }, []);
-  const handleChange = ({ target }) => {
-    const { name, value } = target;
-    setBlog({
-      ...blog,
-      [name]: value,
-    });
-  };
+
+  // const handleChange = ({ target }) => {
+  //   const { name, value } = target;
+  //   setBlog({
+  //     ...blog,
+  //     [name]: value,
+  //   });
+  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -48,7 +46,8 @@ const BLogUpdate = () => {
           type="text"
           name="title"
           value={blog.title}
-          onChange={handleChange}
+          // onChange={handleChange}
+          onChange={(e) => setBlog({ ...blog, title: e.target.value })}
           required
         />
         <label>Blog Body:</label>
@@ -56,17 +55,11 @@ const BLogUpdate = () => {
           type="text"
           value={blog.body}
           name="body"
-          onChange={handleChange}
+          onChange={(e) => setBlog({ ...blog, body: e.target.value })}
+          // onChange={handleChange}
           required
         ></textarea>
-        <label>Blog Author:</label>
-        <select value={blog.author} onChange={handleChange}>
-          <option name="author" selected>
-            Select an author
-          </option>
-          <option value="author1">Author 1</option>
-          <option value="author2">Author 2</option>
-        </select>
+
         <button>Update Blog</button>
       </form>
     </div>

@@ -1,6 +1,5 @@
 import Navbar from "./components/Navbar";
 // import Home from "./components/Home";
-<<<<<<< HEAD
 import {
   BrowserRouter as Router,
   Routes,
@@ -8,20 +7,14 @@ import {
   Outlet,
   Navigate,
 } from "react-router-dom";
-=======
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
->>>>>>> 02273f3f0324f199345bfa8fc3ce3ec93275dc73
 import Create from "./components/Create";
 import React from "react";
 import BlogDetail from "./components/BlogDetail";
 import NotFound from "./components/NotFound";
 import BlogList from "./components/BlogList";
-<<<<<<< HEAD
 import BLogUpdate from "./components/BLogUpdate";
 import Register from "./components/Register";
 import Login from "./components/Login";
-=======
->>>>>>> 02273f3f0324f199345bfa8fc3ce3ec93275dc73
 
 function App() {
   return (
@@ -29,7 +22,6 @@ function App() {
       <Router>
         <div className="App">
           <div className="content">
-<<<<<<< HEAD
         <Routes>
           <Route path="/" element={<PrivateRoutes />}>
             <Route path={"/blogs/:id"} element={<BlogDetail />} />
@@ -45,15 +37,7 @@ function App() {
           <Route path={"*"} element={<NotFound />}></Route>
         </Routes>
         </div>
-=======
-            <Routes>
-              <Route exact path={"/"} element={<BlogList />} />
-              <Route path={"/create"} element={<Create />} />
-              <Route path={"/blogs/:id"} element={<BlogDetail />} />
-              <Route path={"*"} element={<NotFound />}></Route>
-            </Routes>
-          </div>
->>>>>>> 02273f3f0324f199345bfa8fc3ce3ec93275dc73
+
         </div>
       </Router>
     </>

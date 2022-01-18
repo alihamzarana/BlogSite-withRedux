@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { isDisabled } from "@testing-library/user-event/dist/utils";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
@@ -7,27 +6,36 @@ import { Link } from "react-router-dom";
 import { getAllBlogs } from "../redux/actions/blogActions";
 
 const BlogList = () => {
-  // const allBlogs = useSelector((state) => state.blogReducer.blogs);
-  // console.log("bloglist component from reducer ", allBlogs);
-  // const dispatch = useDispatch();
+  const allBlogs = useSelector((state) => state.blogReducer.blogs);
+  console.log("bloglist component from reducer ", allBlogs);
+  const dispatch = useDispatch();
   const [blogs, setBlogs] = useState([]);
   const [pageNumber, setPageNumber] = useState(1);
   const [numberOfPages, setNumberOfPages] = useState(0);
   const pages = new Array(numberOfPages).fill(null).map((v, i) => i + 1);
   console.log("pages are:::", pages);
+  // console.log("userId from local storage", userId);
+  // console.log("all blogs in bloglist compnent", blogs);
 
+  // useEffect(() => {
+  //   setBlogs(allBlogs);
+  // }, [allBlogs]);
   useEffect(() => {
-    // dispatch(getAllBlogs());
-    fetch(`http://localhost:4000/blogs?page=${pageNumber}`)
+    // dispatch(getAllBlogs(pageNumber));
+    fetch(`https://blogsite-server.herokuapp.com/blogs?page=${pageNumber}`)
       .then((response) => response.json())
       .then(({ totalPages, data }) => {
         setBlogs(data);
         setNumberOfPages(totalPages);
         // setPageNumber(currentPage)
       });
+    // setBlogs(allBlogs);
+    // setNumberOfPages(allBlogs.totalPages);
     // setBlogs(allBlogs.data);
     // setNumberOfPages(allBlogs.totalPages);
   }, [pageNumber]);
+
+  // console.log("blogs.userId._id", blogs.userId._id);
 
   // useEffect(() => {
   //   fetch(`http://localhost:4000/blogs?page=${pageNumber}`)
@@ -46,33 +54,19 @@ const BlogList = () => {
     setPageNumber(Math.min(pageNumber + 1));
     // setPageNumber(Math.min(numberOfPages - 1, pageNumber + 1));
   };
-=======
-import React, {useEffect} from "react";
-import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { getAllBlogs } from "../redux/actions/blogActions";
 
-const BlogList = () => {
-  const dispatch = useDispatch()
-  const blogs = useSelector((state) => state.blogReducer.blogs)
-  console.log("blogs in blog list", blogs)
-
-  useEffect(() => {
-  dispatch(getAllBlogs())
-    
-  }, [])
->>>>>>> 02273f3f0324f199345bfa8fc3ce3ec93275dc73
   return (
     <div className="blog-lists">
-      <h3>page of - {pageNumber}</h3>
-      {blogs.map((blog, index) => (
-        <div className="blog-preview" key={index}>
-          <Link to={`/blogs/${blog._id}`}>
-            <h2>{blog.title}</h2>
-            <p>Written by {blog.author}</p>
-          </Link>
-        </div>
-      ))}
+      {/* <h3>page of - {pageNumber}</h3> */}
+      {blogs &&
+        blogs?.map((blog, index) => (
+          <div className="blog-preview" key={index}>
+            <Link to={`/blogs/${blog._id}`}>
+              <h2>{blog.title}</h2>
+              <p>Written by {blog.author}</p>
+            </Link>
+          </div>
+        ))}
       {/* <Paginate /> */}
 
       <button onClick={gotoPrevious} disabled={pageNumber === 1}>

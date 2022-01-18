@@ -12,6 +12,7 @@ const BlogDetail = () => {
   const dispatch = useDispatch();
   const blog = useSelector((state) => state.blogReducer.blog);
   console.log("single blog", blog);
+  const userID = localStorage.getItem("userId");
 
   useEffect(() => {
     dispatch(getSingleBlog(id));
@@ -30,10 +31,14 @@ const BlogDetail = () => {
           <h2>{blog.title}</h2>
           <p>Written By {blog.author}</p>
           <div>{blog.body}</div>
-          <button onClick={handleDelete}>Delete</button>
-          <Link to={`/blogs/update-blog/${blog._id}`}>
-            <button onClick={handleUpdate}>Update</button>
-          </Link>
+          {blog?.userId === userID && (
+            <>
+              <button onClick={handleDelete}>Delete</button>
+              <Link to={`/blogs/update-blog/${blog._id}`}>
+                <button onClick={handleUpdate}>Update</button>
+              </Link>
+            </>
+          )}
         </article>
       )}
     </div>

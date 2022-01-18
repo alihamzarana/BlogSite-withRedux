@@ -6,16 +6,19 @@ const Register = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  //   const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const user = { username, email, password };
     console.log("user before create", user);
-    const res = await axios.post("http://localhost:4000/users", user);
+    const res = await axios.post(
+      "https://blogsite-server.herokuapp.com/users",
+      user
+    );
     console.log("response of user register", res);
-    // navigate("/");
+    navigate("/login");
   };
   return (
     <div className="create">
@@ -47,10 +50,9 @@ const Register = () => {
         />
 
         <button>Register</button>
-        <h5>Already register? Goto Login</h5>
-        <Link to={"/login"}>
-          <button>Login</button>
-        </Link>
+        <h5>
+          Already register? <Link to={"/login"}>Goto Login</Link>
+        </h5>
       </form>
     </div>
   );

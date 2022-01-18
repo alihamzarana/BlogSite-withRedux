@@ -22,7 +22,7 @@ export const getAllBlogs = (pageNumber) => async (dispatch) => {
     // dispatch(setIsFetching(true));
     // const res = await axios.get("http://localhost:4000/blogs");
     const res = await axios.get(
-      `http://localhost:4000/blogs?page=${pageNumber}`
+      `https://blogsite-server.herokuapp.com/blogs?page=${pageNumber}`
     );
 
     console.log("get all blogs", res);
@@ -43,7 +43,9 @@ export const getAllBlogs = (pageNumber) => async (dispatch) => {
 
 export const getSingleBlog = (id) => async (dispatch) => {
   try {
-    const res = await axios.get("http://localhost:4000/blogs/" + id);
+    const res = await axios.get(
+      "https://blogsite-server.herokuapp.com/blogs/" + id
+    );
     console.log("sinle blog response", res);
     if (res.status === 200) {
       dispatch({
@@ -59,7 +61,9 @@ export const getSingleBlog = (id) => async (dispatch) => {
 export const getSingleBlogItem = (id) => async (dispatch) => {
   console.log("getsingleblogitem id:", id);
   try {
-    const res = await axios.get("http://localhost:4000/blogs/" + id);
+    const res = await axios.get(
+      "https://blogsite-server.herokuapp.com/blogs/" + id
+    );
     console.log("sinle blog item response", res);
     if (res.status === 200) {
       dispatch({
@@ -77,7 +81,10 @@ export const updateBlog = (id, blogData, navigate) => async (dispatch) => {
   console.log("blogData for put request in action:", blogData);
   // console.log("naviaget", navigate);
   try {
-    const res = await axios.put("http://localhost:4000/blogs/" + id, blogData);
+    const res = await axios.put(
+      "https://blogsite-server.herokuapp.com/blogs/" + id,
+      blogData
+    );
     console.log("update blog response", res);
     if (res.request.status === 200) {
       dispatch({
@@ -91,12 +98,19 @@ export const updateBlog = (id, blogData, navigate) => async (dispatch) => {
   }
 };
 
-export const addBlog = (blogData, navigate) => async (dispatch) => {
+export const addBlog = (blogData, token, navigate) => async (dispatch) => {
   console.log("Navigate", navigate);
   try {
+    const config = {
+      headers: { Authorization: `Bearer ${token}` },
+    };
     console.log("add data in action", blogData);
     // console.log("navigate", navigate);
-    const res = await axios.post("http://localhost:4000/blogs", blogData);
+    const res = await axios.post(
+      "https://blogsite-server.herokuapp.com/blogs",
+      blogData,
+      config
+    );
     console.log("post request data", res);
     if (res.status === 200) {
       dispatch({
@@ -113,7 +127,9 @@ export const addBlog = (blogData, navigate) => async (dispatch) => {
 export const deleteBlog = (id, navigate) => async (dispatch) => {
   try {
     console.log("delete id", id);
-    const res = await axios.delete("http://localhost:4000/blogs/" + id);
+    const res = await axios.delete(
+      "https://blogsite-server.herokuapp.com/blogs/" + id
+    );
     console.log("delete response", res);
     dispatch({
       type: DELETE_BLOG,
@@ -127,10 +143,20 @@ export const deleteBlog = (id, navigate) => async (dispatch) => {
 
 export const userLogin = (userData, navigate) => async (dispatch) => {
   try {
-    const res = await axios.post("http://localhost:4000/users/login", userData);
+    const res = await axios.post(
+      "https://blogsite-server.herokuapp.com/users/login",
+      userData
+    );
     console.log("res::::", res);
     const logintoken = localStorage.setItem("token", res.data.token);
-    console.log(" login token in localstorage", logintoken);
+    const userId = localStorage.setItem("userId", res.data.data._id);
+    const username = localStorage.setItem("username", res.data.data.username);
+
+    console.log(
+      " login token in localstorage",
+      logintoken,
+      res.data.data.username
+    );
 
     console.log("login request data", res);
     if (res.request.status === 200) {
