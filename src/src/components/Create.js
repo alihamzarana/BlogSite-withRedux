@@ -7,8 +7,6 @@ const Create = () => {
   const userId = localStorage.getItem("userId");
   const userName = localStorage.getItem("username");
   const token = localStorage.getItem("token");
-  console.log("token in create blog component", token);
-  // const [selectedFile, setSelectedFile] = useState();
   const [preview, setPreview] = useState();
   const [blog, setBlog] = useState({
     title: "",
@@ -17,15 +15,7 @@ const Create = () => {
     image: "",
     userId,
   });
-  // const onSelectFile = (e) => {
-  //   if (!e.target.files || e.target.files.length === 0) {
-  //     setBlog({ ...blog, image: undefined });
-  //     return;
-  //   }
 
-  //   // setSelectedFile(e.target.files[0]);
-  //   setBlog({ ...blog, image: e.target.files[0] });
-  // };
   useEffect(() => {
     if (!blog.image) {
       setPreview(null);
@@ -33,7 +23,6 @@ const Create = () => {
     }
 
     const objectUrl = URL.createObjectURL(blog.image);
-    console.log("image url", objectUrl);
     setPreview(objectUrl);
 
     // free memory when ever this component is unmounted
@@ -55,8 +44,7 @@ const Create = () => {
     for (var pair of formData.entries()) {
       console.log(pair[0] + " - " + pair[1]);
     }
-    // const data = formData;
-    // console.log("blog data", formData);
+    
     dispatch(addBlog(formData, token, navigate));
   };
   return (
@@ -70,7 +58,6 @@ const Create = () => {
           required
           value={blog.title}
           onChange={(e) => setBlog({ ...blog, title: e.target.value })}
-          // onChange={onSelectFile}
         />
         <label>Add image</label>
         <div>

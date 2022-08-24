@@ -7,10 +7,6 @@ import { getSingleBlogItem, updateBlog } from "../redux/actions/blogActions";
 
 const BLogUpdate = () => {
   const singleBlog = useSelector((state) => state.blogReducer.blog);
-  // console.log("singleBlogItem", singleBlog);
-  // const [title, setTitle] = useState("");
-  // const [body, setBody] = useState("");
-  // const [author, setAuthor] = useState("");
   const [blog, setBlog] = useState({ title: "", body: "", image: "" });
   const { id } = useParams();
   let navigate = useNavigate();
@@ -58,7 +54,6 @@ const BLogUpdate = () => {
     for (var pair of formData.entries()) {
       console.log(pair[0] + " - " + pair[1]);
     }
-    // console.log("data for update::", data);
     dispatch(updateBlog(id, formData, navigate));
     // navigate("/")
   };
@@ -71,7 +66,6 @@ const BLogUpdate = () => {
           type="text"
           name="title"
           value={blog.title}
-          // onChange={handleChange}
           onChange={(e) => setBlog({ ...blog, title: e.target.value })}
           required
         />
@@ -112,7 +106,6 @@ const BLogUpdate = () => {
           value={blog.body}
           name="body"
           onChange={(e) => setBlog({ ...blog, body: e.target.value })}
-          // onChange={handleChange}
           required
         ></textarea>
 

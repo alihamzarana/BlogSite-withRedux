@@ -1,0 +1,17 @@
+import { Meta, Story } from "@storybook/addon-docs";
+
+import Button from "./Button";
+
+<Meta title="Form/Button" component={Button} />
+
+export const Template = (args) => <Button {...args} />;
+
+<Story
+  name="Primary"
+  args={{
+    name: "Button",
+    myDate: "05/05/2021"
+  }}
+>
+  {Template.bind({})}
+</Story>
